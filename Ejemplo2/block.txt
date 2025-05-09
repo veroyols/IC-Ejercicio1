@@ -1,0 +1,33 @@
+﻿Ejercicio 1 Enunciado:
+
+Construir un sitio web en el cual se pueda:
+	➢ Dar de alta clientes:
+		• CUIT (11 caracteres sin)
+		• Razón Social (read only)
+		• Teléfono (Numérico)
+		• Dirección (200 caracteres máximo)
+		• Activo (Si/No)
+	➢ Listar los clientes
+	➢ Editar un cliente
+	➢ Eliminar un cliente
+
+Notas:
+
+	➢ Para obtener la razón social en base a un cuit utilizar el siguiente WebMethod:
+	   https://sistemaintegracomex.com.ar/Account/GetNombreByCuit?cuit={valorCuit}
+Consumiéndolo a través de un ajax request, luego de que devuelva un resultado utilizarlo para llenar la razón social
+
+Requisitos:
+
+	* Se deberá utilizar .net framework 4.5 o superior con lenguaje C#, MVC y SQL server para la base de datos
+	* Utilizar Bootstrap será un plus
+
+
+-----
+> docker pull mysql
+Using default tag: latest
+> docker run -e MYSQL_ROOT_PASSWORD=my-secret-pw -e MYSQL_DATABASE=my_mysql_db -p 3306:3306 mysql:latest
+
+
+> docker pull mcr.microsoft.com/mssql/server:2019-latest
+> docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=Ejercicio1." -p 1433:1433 --name ic_sql2019 --hostname sql2019 -d mcr.microsoft.com/mssql/server:2019-latest
