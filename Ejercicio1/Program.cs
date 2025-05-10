@@ -1,4 +1,8 @@
+using Application.Interfaces;
+using Application.UseCase;
+using Infrastructure.Command;
 using Infrastructure.Persistence;
+using Infrastructure.Query;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +14,12 @@ builder.Services.AddControllersWithViews();
 var connectionString = builder.Configuration.GetConnectionString("SqlServer");
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
 
-//builder.Services.AddDbContext<AppDbContext>(opt => opt.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+//dependencias 
+builder.Services.AddTransient<IServiceClient, ServiceClient>();
+builder.Services.AddTransient<ICommandClient, CommandClient>();
+builder.Services.AddTransient<IQueryClient, QueryClient>();
+
+
 
 var app = builder.Build();
 
