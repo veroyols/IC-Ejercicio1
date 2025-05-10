@@ -1,6 +1,7 @@
 ﻿using Application.Interfaces;
 using Domain.Entities;
 using Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Query
 {
@@ -11,14 +12,19 @@ namespace Infrastructure.Query
         {
             _context = context;
         }
-        public async Task<List<Client?>> GetAllClients()
+        public async Task<bool> ClientExists(string cuit)
         {
-            throw new NotImplementedException();
+            return await _context.Client.AnyAsync(c => c.CUIT == cuit);
         }
 
-        public async Task<Client?> GetClientByCuil(string cuil)
+        public async Task<List<Client>> GetAllClients()
         {
-            throw new NotImplementedException();
+            return await _context.Client.ToListAsync();
+        }
+
+        public async Task<Client?> GetClientByCuit(string cuit)
+        {
+            return await _context.Client.FirstOrDefaultAsync(client => client.CUIT == cuit);
         }
     }
 }

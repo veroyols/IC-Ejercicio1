@@ -4,8 +4,9 @@ namespace Application.Interfaces
 {
     public interface IQueryClient
     {
-        public Task<List<Client?>> GetAllClients();
-        public Task<Client?> GetClientByCuil(string cuil);
+        public Task<bool> ClientExists(string cuit);
+        public Task<List<Client>> GetAllClients();
+        public Task<Client?> GetClientByCuit(string cuit);
 
     }
 }

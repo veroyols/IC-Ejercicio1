@@ -7,10 +7,6 @@
         public string Telefono { get; set; }
         public string Direccion { get; set; }
         public bool Activo { get; set; }
-        public void SetRazonSocial(string razonSocial)
-        {
-            RazonSocial = razonSocial;
-        }
     }
 
 }
