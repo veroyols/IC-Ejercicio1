@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Exercise 1";
+}
+<h1>@ViewData["Title"]</h1>
+<h3>Views/Home/Exercise.cshtml</h3>
+<p>
+	Construir un sitio web en el cual se pueda:
+	➢ Dar de alta clientes:
+	• CUIT (11 caracteres sin)
+	• Razón Social (read only)
+	• Teléfono (Numérico)
+	• Dirección (200 caracteres máximo)
+	• Activo (Si/No)
+	➢ Listar los clientes
+	➢ Editar un cliente
+	➢ Eliminar un cliente
+
+	Notas:
+
+	➢ Para obtener la razón social en base a un cuit utilizar el siguiente WebMethod:
+	https://sistemaintegracomex.com.ar/Account/GetNombreByCuit?cuit={valorCuit}
+	Consumiéndolo a través de un ajax request, luego de que devuelva un resultado utilizarlo para llenar la razón social
+
+	Requisitos:
+
+	* Se deberá utilizar .net framework 4.5 o superior con lenguaje C#, MVC y SQL server para la base de datos
+	* Utilizar Bootstrap será un plus	.
+</p>
