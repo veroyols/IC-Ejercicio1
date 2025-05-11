@@ -5,10 +5,26 @@ using Infrastructure.Persistence;
 using Infrastructure.Query;
 using Microsoft.EntityFrameworkCore;
 
+//CORS
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
 var builder = WebApplication.CreateBuilder(args);
+
+//CORS
+builder.Services.AddCors(options => {
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      policy => {
+                          policy
+                          .AllowAnyOrigin()
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                      });
+});
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
 
 //db
 var connectionString = builder.Configuration.GetConnectionString("SqlServer");
@@ -38,6 +54,11 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Client}/{action=Index}/{id?}");
+    pattern: "{controller=Client}/{action=Clients}/{id?}");
+
+app.MapControllerRoute(
+    name: "GetNombreByCuit",
+    pattern: "Client/GetNombreByCuit/{cuit?}",
+    defaults: new { controller = "Client", action = "GetNombreByCuit" });
 
 app.Run();

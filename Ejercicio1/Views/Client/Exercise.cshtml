@@ -1,28 +1,66 @@
 ﻿@{
-    ViewData["Title"] = "Exercise 1";
+    ViewData["Title"] = "Enunciado";
+	ViewData["Subtitle"] = "Ejercicio 1:";
 }
 <h1>@ViewData["Title"]</h1>
-<h3>Views/Home/Exercise.cshtml</h3>
-<p>
-	Construir un sitio web en el cual se pueda:
-	➢ Dar de alta clientes:
-	• CUIT (11 caracteres sin)
-	• Razón Social (read only)
-	• Teléfono (Numérico)
-	• Dirección (200 caracteres máximo)
-	• Activo (Si/No)
-	➢ Listar los clientes
-	➢ Editar un cliente
-	➢ Eliminar un cliente
+<h3>@ViewData["Subtitle"]</h3>
+<p><b>Construir un sitio web en el cual se pueda:</b></p>
 
-	Notas:
+<div>
+	<ul>
+		<li>
+			Dar de alta clientes.
+			<div>
+				<ul>
+					<li>
+						CUIT (11 caracteres sin)
+					</li>
+					<li>
+						Razón Social (read only)
+					</li>
+					<li>
+						Teléfono (Numérico)
+					</li>
+					<li>
+						Dirección (200 caracteres máximo)
+					</li>
+					<li>
+						Activo (Si/No)
+					</li>
+				</ul>
+			</div>
+		</li>
+		<li>
+			Listar los clientes.
+		</li>
+		<li>
+			Editar un cliente.
+		</li>
+		<li>
+			Eliminar un cliente.
+		</li>
+	</ul>
+</div>
 
-	➢ Para obtener la razón social en base a un cuit utilizar el siguiente WebMethod:
-	https://sistemaintegracomex.com.ar/Account/GetNombreByCuit?cuit={valorCuit}
-	Consumiéndolo a través de un ajax request, luego de que devuelva un resultado utilizarlo para llenar la razón social
+<p><b>Notas:</b></p>
+<div>
+	<ul>
+		<li>
+			Para obtener la razón social en base a un cuit utilizar el siguiente WebMethod:
+			<a href="https://sistemaintegracomex.com.ar/Account/GetNombreByCuit?cuit=">https://sistemaintegracomex.com.ar/Account/GetNombreByCuit?cuit=</a>{valorCuit}
+			Consumiéndolo a través de un ajax request, luego de que devuelva un resultado utilizarlo para llenar la razón social
+		</li>
+	</ul>
+</div>
 
-	Requisitos:
-
-	* Se deberá utilizar .net framework 4.5 o superior con lenguaje C#, MVC y SQL server para la base de datos
-	* Utilizar Bootstrap será un plus	.
-</p>
+<p><b>Requisitos:</b></p>
+<div>
+	<ul>
+		<li>
+			Se deberá utilizar .net framework 4.5 o superior con lenguaje C#, MVC y SQL server para la base de datos.
+		</li>
+		<li>
+			Utilizar Bootstrap será un plus.
+		</li>
+	</ul>
+</div>

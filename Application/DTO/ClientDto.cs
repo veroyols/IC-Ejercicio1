@@ -17,6 +17,7 @@ namespace Application.DTO
             Direccion = client.Direccion;
             Activo = client.Activo;
         }
+        public ClientDTO() { }
     }
 
 }
