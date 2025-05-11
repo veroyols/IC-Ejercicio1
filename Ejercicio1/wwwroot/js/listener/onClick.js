@@ -21,9 +21,10 @@ const getRazonSocial = async (cuit) => {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-    const btnGetRazonSocial = document.getElementById("buttonValidarCuit");
-    const btnSaveInBd = document.getElementById("buttonCreateFormSubmit");
-
+    const isEdit = document.getElementById("isEditMode")?.value === "true";
+    const buttonGetRazonSocial = document.getElementById("buttonGetRazonSocial");
+    const buttonCreateFormSubmit = document.getElementById("buttonCreateFormSubmit");
+    const buttonUpdateFormSubmit = document.getElementById("buttonUpdateFormSubmit");
 
     const inputRazonSocial = document.getElementById("inputRazonSocial");
     const inputCUIT = document.getElementById("inputCuit");
@@ -31,29 +32,34 @@ document.addEventListener("DOMContentLoaded", () => {
     const inputDireccion = document.getElementById("inputDireccion");
     const inputActive = document.getElementById("inputActive");
 
+    if (!isEdit) {
+
+        buttonGetRazonSocial.addEventListener("click", async () => {
+
+            const cuit = document.getElementById("inputCuit").value.trim();
+
+            if (!/^\d{11}$/.test(cuit)) {
+                alert("El CUIT debe contener exactamente 11 dígitos.");
+                return;
+            }
+
+            const razonSocial = await getRazonSocial(cuit);
+            inputRazonSocial.value = razonSocial.nombre;
+            inputCUIT.setAttribute("readonly", "true");
+
+            inputTelefono.removeAttribute("readonly");
+            inputDireccion.removeAttribute("readonly");
+            inputActive.removeAttribute("disabled");
+            buttonCreateFormSubmit.removeAttribute("disabled");
+        });
 
 
-    btnGetRazonSocial.addEventListener("click", async () => {
-        const cuit = document.getElementById("inputCuit").value.trim();
-
-        if (!/^\d{11}$/.test(cuit)) {
-            alert("El CUIT debe contener exactamente 11 dígitos.");
-            return;
-        }
-
-        const razonSocial = await getRazonSocial(cuit);
-        inputRazonSocial.value = razonSocial.nombre;
+    } else {
+        buttonGetRazonSocial.setAttribute("disabled"); //
         inputCUIT.setAttribute("readonly", "true");
-
         inputTelefono.removeAttribute("readonly");
         inputDireccion.removeAttribute("readonly");
         inputActive.removeAttribute("disabled");
-
-        btnSaveInBd.disabled = false;
-    });
-
-
-    btnSaveInBd.addEventListener("click", async () => {
-        
-    });
+        buttonUpdateFormSubmit.removeAttribute("disabled");
+    }
 });

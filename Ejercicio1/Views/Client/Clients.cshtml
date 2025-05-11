@@ -29,7 +29,7 @@
             <td>@clientDto.Direccion</td>
             <td>@clientDto.Activo</td>
             <td>
-                <a asp-action="Edit" asp-route-cuit="@clientDto.CUIT">Editar</a>
+                    <a asp-action="Update" asp-route-cuit="@clientDto.CUIT">Editar</a>
                 <a asp-action="Delete" asp-route-cuit="@clientDto.CUIT">Eliminar</a>
             </td>
         </tr>
@@ -42,5 +42,5 @@
     </div>
 }
 <div class="text-center">
-    <a class="btn btn-primary" asp-controller="Client" asp-action="CreateForm">Agregar nuevo cliente</a>
+    <a class="btn btn-primary" asp-controller="Client" asp-action="Create">Agregar nuevo cliente</a>
 </div>

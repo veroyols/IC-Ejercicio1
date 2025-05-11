@@ -141,6 +141,7 @@ namespace Application.UseCase
                     Direccion = clientDTO.Direccion,
                     Activo = clientDTO.Activo
                 });
+                Console.WriteLine("-----------------------------------------------------------",updatedClient); 
                 return new ResponseDTO<ClientDTO?>
                 {
                     Success = true,

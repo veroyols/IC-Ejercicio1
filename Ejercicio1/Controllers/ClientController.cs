@@ -14,46 +14,67 @@ namespace Ejercicio1.Controllers
         {
             _serviceClient = serviceClient;
         }
+        public IActionResult Exercise()
+        {
+            return View();
+        }
         public async Task<IActionResult> Clients()
         {
 
             var clients = await _serviceClient.GetAllClientDtos();
             return View(clients);
         }
-        public IActionResult CreateForm()
+        public IActionResult Create()
         {
-            ViewData["Title"] = "Crear";
-            ViewData["ActionType"] = "Agregar Cliente";
-            return View();
+            return View(new ClientDTO()); // Vista de creación con un modelo vacío
         }
+
         [HttpPost]
         public async Task<IActionResult> Create(ClientDTO clientDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(clientDto); // Si hay errores, muestra la vista de creación con los datos ingresados
+            }
+
+            var response = await _serviceClient.CreateClient(clientDto);
+            if (response.Success)
+            {
+                return RedirectToAction("Clients");
+            }
+
+            ModelState.AddModelError("", "Error al crear el cliente.");
+            return View(clientDto);
+        }
+
+
+        public async Task<IActionResult> Update(string cuit)
+        {
+            var clientToUpdate = await _serviceClient.GetClientByCUIT(cuit);
+
+            if (clientToUpdate.Success)
+            {
+                return View("Update", clientToUpdate.Data);
+            }
+
+            return RedirectToAction("Clients");
+        }
+        [HttpPost]
+        public async Task<IActionResult> Update(ClientDTO clientDto)
         {
             if (!ModelState.IsValid)
             {
                 return View(clientDto); 
             }
 
-            var response = await _serviceClient.CreateClient(clientDto);
-            return RedirectToAction("Clients");
-        }
-
-        public IActionResult Exercise()
-        {
-            return View();
-        }
-
-        public async Task<IActionResult> Edit(string cuit)
-        {
-            var clientToUpdate = await _serviceClient.GetClientByCUIT(cuit);
-            if (clientToUpdate.Success)
+            var response = await _serviceClient.UpdateClient(clientDto);
+            if (response.Success)
             {
-                ViewData["Title"] = "Editar";
-                ViewData["ActionType"] = "Editar Cliente";
-                return View("CreateForm", clientToUpdate.Data); 
+                return RedirectToAction("Clients");
             }
-            await _serviceClient.UpdateClient(clientToUpdate.Data);
-            return RedirectToAction("Clients");
+
+            ModelState.AddModelError("", "Error al actualizar el cliente.");
+            return View(clientDto);
         }
         public async Task<IActionResult> Delete(string cuit)
         {

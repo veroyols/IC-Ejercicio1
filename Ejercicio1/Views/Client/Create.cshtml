@@ -1,21 +1,17 @@
 ﻿@model Application.DTO.ClientDTO
 
-@{
-    ViewData["Title"] = ViewData["Title"] ?? "Create";
-//<form action="/Client/Create" method="post" id="formCreateClient">
-}
+<form action="/Client/Create" method="post" id="formClient">
+    <input type="hidden" name="IsEditMode" value="false" />
 
-
-    <form asp-action="@ViewData["Title"]" method="post" id="formCreateClient">
 
     <div class="text-right">
-        <h1 class="display-4">@(ViewData["Title"] as string == "Edit" ? "Editar Cliente" : "Agregar Cliente")</h1>
+        <h1 class="display-4">Agregar Cliente</h1>
     </div>
 
     <div class="form-group">
         <label asp-for="CUIT"></label>
         <input asp-for="CUIT" id="inputCuit" class="form-control" />
-        <button type="button" id="buttonValidarCuit" class="btn btn-secondary mt-2">Validar CUIT</button>
+        <button type="button" id="buttonGetRazonSocial" class="btn btn-secondary mt-2">Validar CUIT</button>
         <span asp-validation-for="CUIT" class="text-danger"></span>
     </div>
 
@@ -24,7 +20,6 @@
         <input asp-for="RazonSocial" id="inputRazonSocial" class="form-control" readonly />
         <span asp-validation-for="RazonSocial" class="text-danger"></span>
     </div>
-
 
     <div class="form-group">
         <label asp-for="Telefono"></label>
@@ -43,10 +38,10 @@
         <label asp-for="Activo" class="form-check-label"></label>
     </div>
 
-    <button id="buttonCreateFormSubmit" type="submit" class="btn btn-primary" disabled>Guardar</button>
-    <button type="submit" class="btn btn-primary">
-        @(ViewData["Title"] as string == "Edit" ? "Actualizar" : "Guardar")
+    <button id=buttonCreateFormSubmit type="submit" class="btn btn-primary">
+        Guardar
     </button>
+
 </form>
 
 @section Scripts {
