@@ -55,11 +55,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     } else {
-        buttonGetRazonSocial.setAttribute("disabled"); //
-        inputCUIT.setAttribute("readonly", "true");
-        inputTelefono.removeAttribute("readonly");
-        inputDireccion.removeAttribute("readonly");
-        inputActive.removeAttribute("disabled");
-        buttonUpdateFormSubmit.removeAttribute("disabled");
+        buttonGetRazonSocial.classList.add("hidden");
     }
 });

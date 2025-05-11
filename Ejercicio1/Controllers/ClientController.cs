@@ -20,7 +20,6 @@ namespace Ejercicio1.Controllers
         }
         public async Task<IActionResult> Clients()
         {
-
             var clients = await _serviceClient.GetAllClientDtos();
             return View(clients);
         }

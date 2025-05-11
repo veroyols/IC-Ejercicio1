@@ -1,17 +1,11 @@
 ﻿@model Application.DTO.ClientDTO
-@{
-    ViewData["Title"] = "Agregar cliente";
-}
-
 
 <form action="/Client/Create" method="post" id="formClient">
     <input type="hidden" name="IsEditMode" value="false" />
 
-    <div class="d-flex justify-content-between align-items-center">
-        <h1 class="display-4">@ViewData["Title"]</h1>
-        <a class="btn btn-secondary" asp-controller="Client" asp-action="Clients" data-bs-toggle="tooltip" title="Cancelar y volver al inicio">
-            <i class="bi bi-arrow-left-circle"></i> Cancelar
-        </a>
+
+    <div class="text-right">
+        <h1 class="display-4">Agregar Cliente</h1>
     </div>
 
     <div class="form-group">
@@ -44,7 +38,7 @@
         <label asp-for="Activo" class="form-check-label"></label>
     </div>
 
-    <button id=buttonCreateFormSubmit type="submit" class="btn btn-primary" disabled>
+    <button id=buttonCreateFormSubmit type="submit" class="btn btn-primary">
         Guardar
     </button>
 
