@@ -1,49 +1,37 @@
 ﻿@model Application.DTO.ClientDTO
-
-<form action="/Client/Create" method="post" id="formClient">
-    <input type="hidden" name="IsEditMode" value="false" />
-
-
-    <div class="text-right">
-        <h1 class="display-4">Agregar Cliente</h1>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="CUIT"></label>
-        <input asp-for="CUIT" id="inputCuit" class="form-control" />
-        <button type="button" id="buttonGetRazonSocial" class="btn btn-secondary mt-2">Validar CUIT</button>
-        <span asp-validation-for="CUIT" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="RazonSocial"></label>
-        <input asp-for="RazonSocial" id="inputRazonSocial" class="form-control" readonly />
-        <span asp-validation-for="RazonSocial" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Telefono"></label>
-        <input asp-for="Telefono" id="inputTelefono" class="form-control" readonly />
-        <span asp-validation-for="Telefono" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Direccion"></label>
-        <input asp-for="Direccion" id="inputDireccion" class="form-control" readonly />
-        <span asp-validation-for="Direccion" class="text-danger"></span>
-    </div>
-
-    <div class="form-group form-check">
-        <input asp-for="Activo" id="inputActive" class="form-check-input" disabled />
-        <label asp-for="Activo" class="form-check-label"></label>
-    </div>
-
-    <button id=buttonCreateFormSubmit type="submit" class="btn btn-primary">
-        Guardar
-    </button>
-
-</form>
-
-@section Scripts {
-    <script type="module" src="~/js/listener/onClick.js"></script>
+@{
+    ViewData["Title"] = "Detalle del Cliente";
 }
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="display-4">@ViewData["Title"]</h1>
+    <div>
+        <a class="btn btn-warning" asp-controller="Client" asp-action="Update" asp-route-cuit="@Model.CUIT" data-bs-toggle="tooltip" title="Editar cliente">
+            <i class="bi bi-pencil-square"></i> 
+        </a>
+        <a class="btn btn-danger" asp-controller="Client" asp-action="Delete" asp-route-cuit="@Model.CUIT" data-bs-toggle="tooltip" title="Eliminar cliente">
+            <i class="bi bi-trash"></i>
+        </a>
+        <a class="btn btn-secondary" asp-controller="Client" asp-action="Clients" data-bs-toggle="tooltip" title="Volver a la lista">
+            <i class="bi bi-arrow-left-circle"></i> Volver
+        </a>
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-header bg-secondary text-white">
+        Información del Cliente
+    </div>
+    <div class="card-body">
+        <p><strong>CUIT:</strong> @Model.CUIT</p>
+        <p><strong>Razón Social:</strong> @Model.RazonSocial</p>
+        <p><strong>Teléfono:</strong> @Model.Telefono</p>
+        <p><strong>Dirección:</strong> @Model.Direccion</p>
+        <p>
+            <strong>Estado:</strong>
+            <span class="badge @(Model.Activo ? "bg-success text-white" : "bg-danger text-white")">
+                @(Model.Activo ? "Activo" : "Inactivo")
+            </span>
+        </p>
+    </div>
+</div>

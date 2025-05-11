@@ -46,6 +46,17 @@ namespace Ejercicio1.Controllers
             return View(clientDto);
         }
 
+        public async Task<IActionResult> Detail(string cuit)
+        {
+            var clientDetail = await _serviceClient.GetClientByCUIT(cuit);
+
+            if (clientDetail.Success)
+            {
+                return View("Detail", clientDetail.Data);
+            }
+
+            return RedirectToAction("Clients");
+        }
 
         public async Task<IActionResult> Update(string cuit)
         {
