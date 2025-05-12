@@ -1,5 +1,6 @@
 using Application.DTO;
 using Application.Interfaces;
+using Azure;
 using Ejercicio1.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -42,17 +43,17 @@ namespace Ejercicio1.Controllers
             }
 
             var response = await _serviceClient.CreateClient(clientDto);
+            TempData["InfoMessage"] = response.Message;
             if (response.Success)
             {
                 return RedirectToAction("Clients");
             }
             else {
                 Console.WriteLine(response.Message);
-                TempData["InfoMessage"] = response.Message;
+                ModelState.AddModelError("", response.Message);
+                return View(clientDto);
             }
 
-            ModelState.AddModelError("", response.Message);
-            return View(clientDto);
 
         }
 
@@ -79,6 +80,11 @@ namespace Ejercicio1.Controllers
             {
                 return View("Update", clientToUpdate.Data);
             }
+            else
+            {
+                TempData["InfoMessage"] = clientToUpdate.Message;
+                Console.WriteLine(clientToUpdate.Message);
+            }
 
             return RedirectToAction("Clients");
         }
@@ -91,17 +97,19 @@ namespace Ejercicio1.Controllers
             }
 
             var response = await _serviceClient.UpdateClient(clientDto);
+            TempData["InfoMessage"] = response.Message;
             if (response.Success)
             {
                 return RedirectToAction("Clients");
             }
 
-            ModelState.AddModelError("", "Error al actualizar el cliente.");
+            ModelState.AddModelError("", response.Message);
             return View(clientDto);
         }
         public async Task<IActionResult> Delete(string cuit)
         {
             var clientDeleted = await _serviceClient.DeleteClient(cuit);
+            TempData["InfoMessage"] = clientDeleted.Message;
 
             return RedirectToAction("Clients");
         }
