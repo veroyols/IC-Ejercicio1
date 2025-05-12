@@ -157,5 +157,10 @@ namespace Application.UseCase
                 };
             }
         }
+        public async Task<bool> ClientExistsByCuit(string cuit)
+        {
+            return await _queryClient.ClientExists(cuit);
+       
+        }
     }
 }

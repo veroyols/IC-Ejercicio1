@@ -2,10 +2,14 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
-/*
-const backend = "/Client/GetNombreByCuit?cuit=";
+
+//const backend = "/Client/GetNombreByCuit?cuit=";
 
 const getRazonSocial = async (cuit) => {
+    console.log(cuit);
+
+    const backendUrl = "https://localhost:7109/Client/GetNombreByCuit?cuit=";
+
     let init = {
         method: 'GET',
         headers: {
@@ -13,12 +17,11 @@ const getRazonSocial = async (cuit) => {
             'Permissions-Policy': 'interest-cohort=()' // Agregar el encabezado Permissions-Policy
         }
     }
-
-    const response = await fetch(`${URL}${cuit}`, init);
-    
+    const response = await fetch(`${backendUrl}${cuit}`, init);
     console.log(response);
-    return response;
+
+    const data = await response.json();
+    return data;
 };
 
 export { getRazonSocial };
-*/

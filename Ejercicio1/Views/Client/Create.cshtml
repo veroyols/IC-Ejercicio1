@@ -3,21 +3,29 @@
     ViewData["Title"] = "Agregar cliente";
 }
 
+<form asp-controller="Client" asp-action="Create" method="post" id="formCreateClient">
 
-<form action="/Client/Create" method="post" id="formClient">
-    <input type="hidden" name="IsEditMode" value="false" />
 
     <div class="d-flex justify-content-between align-items-center">
         <h1 class="display-4">@ViewData["Title"]</h1>
-        <a class="btn btn-secondary" asp-controller="Client" asp-action="Clients" data-bs-toggle="tooltip" title="Cancelar y volver al inicio">
-            <i class="bi bi-arrow-left-circle"></i> Cancelar
-        </a>
+        <div>
+            <button type="button" class="btn btn-warning" id="buttonClearForm" data-bs-toggle="tooltip" title="Limpiar formulario">
+                <i class="bi bi-eraser"></i> 
+            </button>
+            <a class="btn btn-secondary" asp-controller="Client" asp-action="Clients" data-bs-toggle="tooltip" title="Cancelar y volver al inicio">
+                <i class="bi bi-arrow-left-circle"></i> Cancelar
+            </a>
+        </div>
+    
     </div>
 
     <div class="form-group">
         <label asp-for="CUIT"></label>
         <input asp-for="CUIT" id="inputCuit" class="form-control" />
         <button type="button" id="buttonGetRazonSocial" class="btn btn-secondary mt-2">Validar CUIT</button>
+        <span id="spinner-validate-cuit" class="spinner-border spinner-border-sm d-none"></span>
+    
+        <span id="errorCuit" class="text-danger d-none">El CUIT debe contener 11 dígitos sin guiones.</span>
         <span asp-validation-for="CUIT" class="text-danger"></span>
     </div>
 
@@ -29,27 +37,37 @@
 
     <div class="form-group">
         <label asp-for="Telefono"></label>
-        <input asp-for="Telefono" id="inputTelefono" class="form-control" readonly />
+        <input asp-for="Telefono" class="form-control" />
         <span asp-validation-for="Telefono" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="Direccion"></label>
-        <input asp-for="Direccion" id="inputDireccion" class="form-control" readonly />
+        <input asp-for="Direccion" class="form-control" />
         <span asp-validation-for="Direccion" class="text-danger"></span>
     </div>
 
     <div class="form-group form-check">
-        <input asp-for="Activo" id="inputActive" class="form-check-input" disabled />
+        <input asp-for="Activo" class="form-check-input" />
         <label asp-for="Activo" class="form-check-label"></label>
     </div>
 
-    <button id=buttonCreateFormSubmit type="submit" class="btn btn-primary" disabled>
+    <button id=buttonCreateFormSubmit type="submit" class="btn btn-primary">
         Guardar
     </button>
 
 </form>
 
+
+@if (TempData["InfoMessage"] != null)
+{
+    <div class="alert alert-light alert-dismissible fade show mt-4" role="alert">
+        <strong>Info!</strong> @TempData["InfoMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+
 @section Scripts {
-    <script type="module" src="~/js/listener/onClick.js"></script>
+    <script type="module" src="~/js/listener/onCreate.js"></script>
 }

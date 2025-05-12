@@ -2,7 +2,9 @@
 @{
     ViewData["Title"] = "Editar cliente";
 }
-<form action="/Client/Update" method="post" id="formClient">
+
+<form asp-controller="Client" asp-action="Update" method="post" id="formUpdateClient">
+
 <input type="hidden" name="IsEditMode" value="true" />
 
     <div class="d-flex justify-content-between align-items-center">
@@ -14,31 +16,28 @@
 
     <div class="form-group">
         <label asp-for="CUIT"></label>
-        <input asp-for="CUIT" id="inputCuit" class="form-control" readonly />
-        <button type="button" id="buttonGetRazonSocial" class="btn btn-secondary mt-2">Validar CUIT</button>
-        <span asp-validation-for="CUIT" class="text-danger"></span>
+        <input asp-for="CUIT" class="form-control" readonly />
     </div>
 
     <div class="form-group">
         <label asp-for="RazonSocial"></label>
-        <input asp-for="RazonSocial" id="inputRazonSocial" class="form-control" readonly />
-        <span asp-validation-for="RazonSocial" class="text-danger"></span>
+        <input asp-for="RazonSocial" class="form-control" readonly />
     </div>
 
     <div class="form-group">
         <label asp-for="Telefono"></label>
-        <input asp-for="Telefono" id="inputTelefono" class="form-control" />
+        <input asp-for="Telefono" class="form-control" />
         <span asp-validation-for="Telefono" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="Direccion"></label>
-        <input asp-for="Direccion" id="inputDireccion" class="form-control" />
+        <input asp-for="Direccion" class="form-control" />
         <span asp-validation-for="Direccion" class="text-danger"></span>
     </div>
 
     <div class="form-group form-check">
-        <input asp-for="Activo" id="inputActive" class="form-check-input" />
+        <input asp-for="Activo" class="form-check-input" />
         <label asp-for="Activo" class="form-check-label"></label>
     </div>
 
@@ -48,6 +47,3 @@
 
 </form>
 
-@section Scripts {
-    <script type="module" src="~/js/listener/onClick.js"></script>
-}

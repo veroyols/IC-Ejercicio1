@@ -31,3 +31,6 @@ Using default tag: latest
 
 > docker pull mcr.microsoft.com/mssql/server:2019-latest
 > docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=Ejercicio1." -p 1433:1433 --name ic_sql2019 --hostname sql2019 -d mcr.microsoft.com/mssql/server:2019-latest
+
+
+https://getbootstrap.com/docs/5.3/components/alerts/

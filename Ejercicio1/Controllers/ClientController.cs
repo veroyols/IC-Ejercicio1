@@ -18,14 +18,18 @@ namespace Ejercicio1.Controllers
         {
             return View();
         }
+        
+        // List Clients
         public async Task<IActionResult> Clients()
         {
             var clients = await _serviceClient.GetAllClientDtos();
             return View(clients);
         }
+
+        // Create Client
         public IActionResult Create()
         {
-            return View(new ClientDTO()); // Vista de creación con un modelo vacío
+            return View(new ClientDTO ());
         }
 
         [HttpPost]
@@ -33,7 +37,8 @@ namespace Ejercicio1.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(clientDto); // Si hay errores, muestra la vista de creación con los datos ingresados
+                ModelState.AddModelError("", "Por favor, complete todos los campos requeridos.");
+                return View(clientDto);
             }
 
             var response = await _serviceClient.CreateClient(clientDto);
@@ -41,11 +46,17 @@ namespace Ejercicio1.Controllers
             {
                 return RedirectToAction("Clients");
             }
+            else {
+                Console.WriteLine(response.Message);
+                TempData["InfoMessage"] = response.Message;
+            }
 
-            ModelState.AddModelError("", "Error al crear el cliente.");
+            ModelState.AddModelError("", response.Message);
             return View(clientDto);
+
         }
 
+        // Detail Client
         public async Task<IActionResult> Detail(string cuit)
         {
             var clientDetail = await _serviceClient.GetClientByCUIT(cuit);
@@ -57,6 +68,8 @@ namespace Ejercicio1.Controllers
 
             return RedirectToAction("Clients");
         }
+
+        // Update Client
 
         public async Task<IActionResult> Update(string cuit)
         {

@@ -9,6 +9,8 @@ namespace Application.Interfaces
         public Task<List<ClientDTO>> GetAllClientDtos();
         public Task<ResponseDTO<ClientDTO?>> GetClientByCUIT(string cuit);
         public Task<ResponseDTO<ClientDTO?>> UpdateClient(ClientDTO clientDto);
+        public Task<bool> ClientExistsByCuit(string cuit);
+
 
     }
 }
