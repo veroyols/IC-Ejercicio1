@@ -4,6 +4,7 @@
     ViewData["Title"] = "Agregar cliente";
 }
 
+
 <form asp-controller="Client" asp-action="Create" method="post" id="formCreateClient">
 
 
@@ -25,8 +26,6 @@
         <input asp-for="CUIT" id="inputCuit" class="form-control" />
         <button type="button" id="buttonGetRazonSocial" class="btn btn-secondary mt-2">Validar CUIT</button>
         <span id="spinner-validate-cuit" class="spinner-border spinner-border-sm d-none"></span>
-    
-        <span id="errorCuit" class="text-danger d-none">El CUIT debe contener 11 dígitos sin guiones.</span>
         <span asp-validation-for="CUIT" class="text-danger"></span>
     </div>
 
@@ -38,13 +37,14 @@
 
     <div class="form-group">
         <label asp-for="Telefono"></label>
-        <input asp-for="Telefono" class="form-control" />
+        <input asp-for="Telefono" id="inputTelefono" class="form-control" />
+
         <span asp-validation-for="Telefono" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="Direccion"></label>
-        <input asp-for="Direccion" class="form-control" />
+        <input asp-for="Direccion" id="inputDireccion" class="form-control" />
         <span asp-validation-for="Direccion" class="text-danger"></span>
     </div>
 
@@ -70,5 +70,6 @@
 
 
 @section Scripts {
+    <partial name="_ValidationScriptsPartial" />
     <script type="module" src="~/js/listener/onCreate.js"></script>
 }

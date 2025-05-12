@@ -1,3 +1,4 @@
+
 using Application.DTO;
 using Application.Interfaces;
 using Azure;
@@ -38,23 +39,28 @@ namespace Ejercicio1.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ModelState.AddModelError("", "Por favor, complete todos los campos requeridos.");
+                ModelState.AddModelError("", "Complete los campos requeridos.");
                 return View(clientDto);
             }
 
-            var response = await _serviceClient.CreateClient(clientDto);
-            TempData["InfoMessage"] = response.Message;
-            if (response.Success)
-            {
-                return RedirectToAction("Clients");
-            }
-            else {
-                Console.WriteLine(response.Message);
+            try {
+                var response = await _serviceClient.CreateClient(clientDto);
+                TempData["InfoMessage"] = response.Message;
+                if (response.Success)
+                {
+                    return RedirectToAction("Clients");
+                }
                 ModelState.AddModelError("", response.Message);
-                return View(clientDto);
+                Console.WriteLine(response.Message);
+
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Ocurrió un error al crear el cliente.");
+                Console.WriteLine($"Error en Create: {ex.Message}");
             }
 
-
+            return View(clientDto);
         }
 
         // Detail Client

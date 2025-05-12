@@ -8,31 +8,57 @@ import { getRazonSocial } from "../service/getRazonSocial.js";
 document.addEventListener("DOMContentLoaded", () => {
     
     const buttonClearForm = document.getElementById("buttonClearForm");
-    buttonClearForm.addEventListener("click", () => {
-        location.reload();
-    });
 
-    const buttonGetRazonSocial = document.getElementById("buttonGetRazonSocial");
     const inputRazonSocial = document.getElementById("inputRazonSocial");
+    const buttonGetRazonSocial = document.getElementById("buttonGetRazonSocial");
+    const spinnerGetRazonSocial = document.getElementById("spinner-validate-cuit");
     
     const inputCUIT = document.getElementById("inputCuit");
-    
-    const buttonCreateFormSubmit = document.getElementById("buttonCreateFormSubmit");
+    //const errorCuit = document.getElementById("errorCuit"); 
+    const inputTelefono = document.getElementById("inputTelefono");
+    const inputDireccion = document.getElementById("inputDireccion"); 
+
+    buttonClearForm.addEventListener("click", () => {
+        inputCUIT.value = "";
+        inputRazonSocial.value = "";
+        inputTelefono.value = "";
+        inputDireccion.value = "";
+
+        inputCUIT.removeAttribute("readonly"); 
+        buttonGetRazonSocial.removeAttribute("disabled");
+
+        document.querySelectorAll(".text-danger").forEach(el => el.innerHTML = "");
+    });
+
 
     buttonGetRazonSocial.addEventListener("click", async () => {
         const cuit = inputCUIT.value.trim();
-        const spinnerGetRazonSocial = document.getElementById("spinner-validate-cuit");
 
-        buttonGetRazonSocial.setAttribute("disabled", "true");
+        // validar cuit 
+        if (cuit.length !== 11 || isNaN(cuit)) {
+            //errorCuit.classList.remove("d-none"); 
+            inputCUIT.classList.add("is-invalid"); 
+            return; 
+        } else {
+            //errorCuit.classList.add("d-none"); 
+            inputCUIT.classList.remove("is-invalid");
+        }
+
+        //cargando
+        inputCUIT.setAttribute("readonly", "true");
         spinnerGetRazonSocial.classList.remove("d-none");
+        buttonGetRazonSocial.setAttribute("disabled", "true");
 
-        const razonSocial = await getRazonSocial(cuit);
+        let razonSocial = await getRazonSocial(cuit);
 
-        if (razonSocial) {
-            inputCUIT.setAttribute("readonly", "true");
+        if (razonSocial && razonSocial.nombre) {
             inputRazonSocial.value = razonSocial.nombre;
             spinnerGetRazonSocial.classList.add("d-none");
-            buttonGetRazonSocial.setAttribute("disabled", "true");
+        } else {
+            console.log("no se encuentra razon social--------------");
+            inputCUIT.removeAttribute("readonly"); 
+            buttonGetRazonSocial.removeAttribute("disabled"); 
+            spinnerGetRazonSocial.classList.add("d-none"); 
         }
     });
 });
