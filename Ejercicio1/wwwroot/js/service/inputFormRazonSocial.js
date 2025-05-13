@@ -18,15 +18,14 @@ const inputFormRazonSocial = async (inputCUIT, inputRazonSocial, buttonGetRazonS
 
         // devuelve "Razon Social"
         let razonSocial = await getRazonSocial(inputCUIT.value.trim());
+        spinnerGetRazonSocial.classList.add("d-none");
 
-        if (razonSocial && razonSocial.nombre) {
-            inputRazonSocial.value = razonSocial.nombre;
-            spinnerGetRazonSocial.classList.add("d-none");
-        } else {
-            console.log("no se encuentra razon social--------------");
+        if (razonSocial == null) {
+            console.log("no se encuentra razon social--------------null");
             inputCUIT.removeAttribute("readonly"); 
             buttonGetRazonSocial.removeAttribute("disabled"); 
-            spinnerGetRazonSocial.classList.add("d-none"); 
+        } else {
+            inputRazonSocial.value = razonSocial.nombre;
         }
     };
 

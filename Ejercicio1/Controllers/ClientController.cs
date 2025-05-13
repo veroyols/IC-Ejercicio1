@@ -135,7 +135,14 @@ namespace Ejercicio1.Controllers
             var data = await response.Content.ReadAsStringAsync();
             ////////////////////////
             //return Ok(new { nombre = "Razon Social Backend" });
-            return Ok(new { nombre = data });
+            if (data.Contains("@"))
+            {
+                TempData["InfoMessage"] = "No se encontro Razon Social";
+                return NotFound(new { nombre = ""});
         }
+            return Ok(new { nombre = data });
+
+        }
+        
     }
 }

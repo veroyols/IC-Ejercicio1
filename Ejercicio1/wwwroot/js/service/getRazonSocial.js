@@ -19,9 +19,11 @@ const getRazonSocial = async (cuit) => {
     }
     const response = await fetch(`${backendUrl}${cuit}`, init);
     console.log(response);
-
-    const data = await response.json();
-    return data;
+    if (response.ok) {
+        const data = await response.json();
+        return data;
+    } 
+    return null;
 };
 
 export { getRazonSocial };
