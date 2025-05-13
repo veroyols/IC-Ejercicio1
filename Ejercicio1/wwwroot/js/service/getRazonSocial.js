@@ -3,12 +3,12 @@
 
 // Write your JavaScript code.
 
-//const backend = "/Client/GetNombreByCuit?cuit=";
+import { API_BASE_URL } from "../config.js";
 
 const getRazonSocial = async (cuit) => {
     console.log(cuit);
 
-    const backendUrl = "https://localhost:7109/Client/GetNombreByCuit?cuit=";
+    const backendUrl = `${API_BASE_URL}/GetNombreByCuit?cuit=`;
 
     let init = {
         method: 'GET',

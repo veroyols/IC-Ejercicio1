@@ -132,9 +132,10 @@ namespace Ejercicio1.Controllers
             var URI = "https://sistemaintegracomex.com.ar/Account/GetNombreByCuit?cuit=";
             using var client = new HttpClient();
             var response = await client.GetAsync($"{URI}{cuit}");
-            //var data = await response.Content.ReadAsStringAsync();
+            var data = await response.Content.ReadAsStringAsync();
             ////////////////////////
-            return Ok(new { nombre = "Razon Social Backend" });
+            //return Ok(new { nombre = "Razon Social Backend" });
+            return Ok(new { nombre = data });
         }
     }
 }
