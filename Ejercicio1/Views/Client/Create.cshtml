@@ -60,6 +60,11 @@
 </form>
 
 
+<div id="errorGet" class="alert alert-light alert-dismissible fade show mt-4 d-none" role="alert">
+    <strong>Info:</strong> No se encontró Razón Social, ingrese otro CUIT.
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
 @if (TempData["InfoMessage"] != null)
 {
     <div class="alert alert-light alert-dismissible fade show mt-4" role="alert">

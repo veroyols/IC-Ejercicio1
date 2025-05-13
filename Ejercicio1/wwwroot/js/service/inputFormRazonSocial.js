@@ -6,27 +6,32 @@
 import { validateCUIT } from "../validation/validationsForm.js";
 import { getRazonSocial } from "./getRazonSocial.js";
 
-const inputFormRazonSocial = async (inputCUIT, inputRazonSocial, buttonGetRazonSocial, spinnerGetRazonSocial) => {
-        
-        if (!validateCUIT(inputCUIT)) {
-            return;
-        }
-        //cargando
-        inputCUIT.setAttribute("readonly", "true");
-        spinnerGetRazonSocial.classList.remove("d-none");
-        buttonGetRazonSocial.setAttribute("disabled", "true");
+const inputFormRazonSocial = async (inputCUIT, inputRazonSocial, buttonGetRazonSocial, spinnerGetRazonSocial) =>
+{
+    const errorGet = document.getElementById("errorGet");
 
-        // devuelve "Razon Social"
-        let razonSocial = await getRazonSocial(inputCUIT.value.trim());
-        spinnerGetRazonSocial.classList.add("d-none");
+    if (!validateCUIT(inputCUIT)) {
+        return;
+    }
 
-        if (razonSocial == null) {
-            console.log("no se encuentra razon social--------------null");
-            inputCUIT.removeAttribute("readonly"); 
-            buttonGetRazonSocial.removeAttribute("disabled"); 
-        } else {
-            inputRazonSocial.value = razonSocial.nombre;
-        }
-    };
+    //cargando
+    inputCUIT.setAttribute("readonly", "true");
+    spinnerGetRazonSocial.classList.remove("d-none");
+    buttonGetRazonSocial.setAttribute("disabled", "true");
+
+    // devuelve "Razon Social"
+    let razonSocial = await getRazonSocial(inputCUIT.value.trim());
+    spinnerGetRazonSocial.classList.add("d-none");
+
+    if (!razonSocial || razonSocial == null) {
+        inputCUIT.removeAttribute("readonly"); 
+        buttonGetRazonSocial.removeAttribute("disabled"); 
+        //mostrar div
+        errorGet.classList.remove("d-none");
+
+    } else {
+        inputRazonSocial.value = razonSocial.nombre;
+    }
+};
 
 export { inputFormRazonSocial };
