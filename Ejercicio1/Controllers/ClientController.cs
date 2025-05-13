@@ -11,10 +11,12 @@ namespace Ejercicio1.Controllers
     public class ClientController : Controller
     {
         private readonly IServiceClient _serviceClient;
+        private readonly IConfiguration _config;
 
-        public ClientController(IServiceClient serviceClient)
+        public ClientController(IServiceClient serviceClient, IConfiguration config)
         {
             _serviceClient = serviceClient;
+            _config = config;
         }
         public IActionResult Exercise()
         {
@@ -128,16 +130,14 @@ namespace Ejercicio1.Controllers
 
         public async Task<IActionResult> GetNombreByCuit(string cuit)
         {
-            Console.WriteLine(cuit);
-            var URI = "https://sistemaintegracomex.com.ar/Account/GetNombreByCuit?cuit=";
+            var baseUrl = _config["WebMethod"];
             using var client = new HttpClient();
-            var response = await client.GetAsync($"{URI}{cuit}");
+            var response = await client.GetAsync($"{baseUrl}{cuit}");
             var data = await response.Content.ReadAsStringAsync();
             ////////////////////////
             //return Ok(new { nombre = "Razon Social Backend" });
             if (data.Contains("@"))
             {
-                TempData["InfoMessage"] = "No se encontro Razon Social";
                 return NotFound(new { nombre = ""});
         }
             return Ok(new { nombre = data });
